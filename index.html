@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="pageTitle">Voice home control</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <header class="app-header">
+    <div class="assistant-identity">
+      <span class="assistant-label">Assistant</span>
+      <h1 id="assistantNameDisplay">Mitra</h1>
+    </div>
+    <button id="settingsToggle" class="icon-button" aria-label="Open settings">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm7.4-3.5c0 .4 0 .8-.1 1.2l2.1 1.6-2 3.5-2.5-1a7.6 7.6 0 0 1-2 1.2l-.4 2.6h-4l-.4-2.6a7.6 7.6 0 0 1-2-1.2l-2.5 1-2-3.5 2.1-1.6a6.9 6.9 0 0 1 0-2.4L2.6 9.3l2-3.5 2.5 1a7.6 7.6 0 0 1 2-1.2L9.5 3h4l.4 2.6c.7.3 1.4.7 2 1.2l2.5-1 2 3.5-2.1 1.6c.1.4.1.8.1 1.2Z"/></svg>
+    </button>
+  </header>
+
+  <main class="app-main">
+
+    <section class="mic-section">
+      <button id="micButton" class="mic-button" aria-label="Start listening">
+        <span class="mic-glyph"></span>
+      </button>
+      <p id="micStatus" class="mic-status">Tap to speak</p>
+      <p id="transcript" class="transcript" aria-live="polite"></p>
+    </section>
+
+    <section class="devices-grid">
+      <div class="device-card">
+        <div class="device-card-top">
+          <span class="device-name">Light</span>
+          <span id="lightState" class="device-state off">OFF</span>
+        </div>
+        <div class="device-card-bottom">
+          <button class="device-btn" data-cmd="LIGHT_ON">Turn on</button>
+          <button class="device-btn" data-cmd="LIGHT_OFF">Turn off</button>
+        </div>
+      </div>
+
+      <div class="device-card">
+        <div class="device-card-top">
+          <span class="device-name">Fan</span>
+          <span id="fanState" class="device-state off">OFF</span>
+        </div>
+        <div class="device-card-bottom">
+          <button class="device-btn" data-cmd="FAN_ON">Turn on</button>
+          <button class="device-btn" data-cmd="FAN_OFF">Turn off</button>
+        </div>
+      </div>
+
+      <div class="device-card wide">
+        <div class="device-card-top">
+          <span class="device-name">Temperature</span>
+          <span id="tempReading" class="device-state neutral">-- &deg;C</span>
+        </div>
+        <div class="device-card-bottom">
+          <button class="device-btn" data-cmd="GET_TEMPERATURE">Check now</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="history-section">
+      <div class="history-header">
+        <h2>Command history</h2>
+        <button id="clearHistory" class="text-button">Clear</button>
+      </div>
+      <ul id="historyList" class="history-list"></ul>
+    </section>
+
+  </main>
+
+  <div id="settingsBackdrop" class="settings-backdrop"></div>
+  <aside id="settingsPanel" class="settings-panel" aria-hidden="true">
+    <div class="settings-header">
+      <h2>Settings</h2>
+      <button id="closeSettings" class="icon-button" aria-label="Close settings">&times;</button>
+    </div>
+
+    <div class="settings-body">
+      <label class="field">
+        <span>Assistant name</span>
+        <input type="text" id="assistantNameInput" placeholder="e.g. Mitra">
+      </label>
+
+      <label class="field">
+        <span>Recognition language</span>
+        <select id="languageSelect">
+          <option value="en-US">English</option>
+          <option value="te-IN">Telugu</option>
+        </select>
+      </label>
+
+      <div class="field">
+        <span>Connection mode</span>
+        <div class="toggle-row">
+          <label class="radio-label"><input type="radio" name="mode" value="simulated" id="modeSimulated"> Simulated</label>
+          <label class="radio-label"><input type="radio" name="mode" value="esp32" id="modeEsp32"> ESP32 (Wi-Fi)</label>
+        </div>
+      </div>
+
+      <label class="field" id="espIpField">
+        <span>ESP32 IP address</span>
+        <input type="text" id="esp32IpInput" placeholder="e.g. 192.168.1.42">
+      </label>
+
+      <label class="field checkbox-field">
+        <input type="checkbox" id="voiceReplyToggle">
+        <span>Speak responses aloud</span>
+      </label>
+
+      <button id="saveSettings" class="primary-button">Save settings</button>
+    </div>
+  </aside>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
